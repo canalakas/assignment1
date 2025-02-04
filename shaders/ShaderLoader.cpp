@@ -29,7 +29,7 @@ GLuint ShaderLoader::LoadShaders(const char* vertexPath, const char* fragmentPat
     fShaderFile.open(fragmentPath);
 
     if (!vShaderFile || !fShaderFile) {
-        std::cerr << "Shader dosyaları açılamadı!" << std::endl;
+        std::cerr << "Shader file cannot be opened!" << std::endl;
         return 0;
     }
 

@@ -15,4 +15,4 @@ public:
     void draw();
 };
 
-#endif // LAYOUT_H
+#endif

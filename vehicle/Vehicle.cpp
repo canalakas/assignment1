@@ -13,9 +13,9 @@ Vehicle::~Vehicle() {}
 
 void Vehicle::update() {
     if (direction) {
-        x += speed; // Sağa hareket
+        x += speed;
     } else {
-        x -= speed; // Sola hareket
+        x -= speed;
     }
 }
 

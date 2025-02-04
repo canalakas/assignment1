@@ -6,11 +6,11 @@ void main() {
     if (isDashed) {
         float dash = mod(gl_FragCoord.x / 20.0, 2.0);
         if (dash < 1.0) {
-            FragColor = vec4(0.0, 0.0, 0.0, 1.0); // **Siyah çizgi**
+            FragColor = vec4(0.0, 0.0, 0.0, 1.0);
         } else {
             discard;
         }
     } else {
-        FragColor = vec4(0.0, 0.0, 0.0, 1.0); // **Siyah çizimler**
+        FragColor = vec4(0.0, 0.0, 0.0, 1.0);
     }
 }

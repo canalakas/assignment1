@@ -12,4 +12,4 @@ public:
     static GLuint LoadShaders(const char* vertexPath, const char* fragmentPath);
 };
 
-#endif // SHADER_LOADER_H
+#endif

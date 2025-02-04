@@ -9,7 +9,7 @@ protected:
     float speed;
     bool direction;
     GLuint shaderProgram;
-    float color[3]; // Araçların renk bilgisi
+    float color[3];
 
 public:
     Vehicle(float x, float y, float speed, float width, float height, bool direction, GLuint shaderProgram);
@@ -20,4 +20,4 @@ public:
     bool isOutOfBounds();
 };
 
-#endif // VEHICLE_H
+#endif

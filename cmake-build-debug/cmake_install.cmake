@@ -1,4 +1,4 @@
-# Install script for directory: /Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment
+# Install script for directory: /Users/canalakas/Desktop/tobb/BIL 539/assigment
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -52,6 +52,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/canalakas/Desktop/tobb/BIL 539/assigment/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

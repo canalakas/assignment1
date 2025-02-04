@@ -4,27 +4,27 @@
 
 Coin::Coin(float x, float y, GLuint shaderProgram)
     : GameObject(x, y, 0.03f, 0.03f), shaderProgram(shaderProgram), lifetime(500), collected(false) {
-    spawnTime = glfwGetTime();  // **Coin'in oluşturulduğu zamanı al**
+    spawnTime = glfwGetTime();
 
-    // **Coin rengi: Sarı**
-    color[0] = 1.0f;  // **R**
-    color[1] = 1.0f;  // **G**
-    color[2] = 0.0f;  // **B**
+    // Yellow Coin
+    color[0] = 1.0f;
+    color[1] = 1.0f;
+    color[2] = 0.0f;
 }
 
 void Coin::update() {
-    if (lifetime > 0) lifetime--;  // **Coin belirli bir süre sonra kaybolacak**
+    if (lifetime > 0) lifetime--;
 }
 
 void Coin::draw() {
-    if (collected || isExpired()) return;  // **Eğer coin toplandıysa veya süresi bittiyse çizme**
+    if (collected || isExpired()) return;
 
     glUseProgram(shaderProgram);
 
     GLint colorLocation = glGetUniformLocation(shaderProgram, "objectColor");
     glUniform3f(colorLocation, color[0], color[1], color[2]);
 
-    const int segments = 20;  // **Dairenin ne kadar pürüzsüz olacağı**
+    const int segments = 20;
     float circleVertices[segments * 2];
 
     for (int i = 0; i < segments; i++) {
@@ -44,7 +44,7 @@ void Coin::draw() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glDrawArrays(GL_TRIANGLE_FAN, 0, segments);  // **Daireyi çiz!**
+    glDrawArrays(GL_TRIANGLE_FAN, 0, segments);
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
@@ -59,5 +59,5 @@ void Coin::collect() {
 }
 
 bool Coin::isExpired() const {
-    return (glfwGetTime() - spawnTime) > 10.0;  // **10 saniye geçti mi?**
+    return (glfwGetTime() - spawnTime) > 10.0;
 }

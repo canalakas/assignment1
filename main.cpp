@@ -26,10 +26,8 @@ void display() {
 void update() {
     game->update();
 
-    // **Araçları belirli aralıklarla ekrana ekleyelim**
-    double currentTime = glfwGetTime(); // **Geçen zamanı al**
+    double currentTime = glfwGetTime();
     if (currentTime - lastSpawnTime >= 1.5) {
-        // **1.5 saniyede bir araç üret**
         game->spawnVehicle();
         game->spawnCoin();
         lastSpawnTime = currentTime;
@@ -47,10 +45,10 @@ void init() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    GLuint shaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/vertex_shader.vs", "/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/fragment_shader.fs");
-    GLuint vehicleShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/vehicle_shader.vs", "/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/vehicle_shader.fs");
-    GLuint agentShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/agent_shader.vs", "/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/agent_shader.fs");
-    GLuint coinShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/coin_shader.vs", "/Users/canalakas/Desktop/tobb/Spring 2025/BIL 539 Bilgisayar Grafikleri/Assignment 1/assignment/shaders/coin_shader.fs");
+    GLuint shaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/vertex_shader.vs","/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/fragment_shader.fs");
+    GLuint vehicleShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/vehicle_shader.vs", "/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/vehicle_shader.fs");
+    GLuint agentShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/agent_shader.vs", "/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/agent_shader.fs");
+    GLuint coinShaderProgram = ShaderLoader::LoadShaders("/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/coin_shader.vs", "/Users/canalakas/Desktop/tobb/BIL 539/assigment/shaders/coin_shader.fs");
 
     glUseProgram(shaderProgram);
     layout = new Layout(shaderProgram);
@@ -59,7 +57,7 @@ void init() {
 
 int main() {
     if (!glfwInit()) {
-        std::cerr << "GLFW başlatılamadı!" << std::endl;
+        std::cerr << "GLFW cannot started!" << std::endl;
         return -1;
     }
 
@@ -67,9 +65,9 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(500, 600, "OpenGL with GLFW", nullptr, nullptr);
+    window = glfwCreateWindow(500, 600, "The Game", nullptr, nullptr);
     if (!window) {
-        std::cerr << "GLFW pencere oluşturulamadı!" << std::endl;
+        std::cerr << "GLFW frame cannot be created!" << std::endl;
         glfwTerminate();
         return -1;
     }

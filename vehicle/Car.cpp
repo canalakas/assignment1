@@ -1,9 +1,8 @@
 #include "Car.h"
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 Car::Car(float x, float y, float speed, bool direction, GLuint shaderProgram)
-    : Vehicle(x, y, speed, 0.1f, 0.05f, direction, shaderProgram) {} // **Car = Küçük kare (0.1x0.05)**
+    : Vehicle(x, y, speed, 0.1f, 0.05f, direction, shaderProgram) {}
 
 void Car::draw() {
     glUseProgram(shaderProgram);

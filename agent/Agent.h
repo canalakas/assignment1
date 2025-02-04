@@ -7,7 +7,7 @@
 class Agent : public GameObject {
 private:
     float stepSize;
-    int direction;  // **1: Yukarı, -1: Aşağı**
+    int direction;
     GLuint shaderProgram;
     float color[3];
     int score;
@@ -22,8 +22,8 @@ public:
     bool checkCollision(float carX, float carY, float carWidth, float carHeight);
     int getScore() const;
     void addScore(int points);
-    int getDirection() const;  // **Yönü dışarıdan öğrenmek için ekledik**
-    void setDirection(int newDirection);  // **Yönü değiştirmek için ekledik**
+    int getDirection() const;
+    void setDirection(int newDirection);
 };
 
-#endif // AGENT_H
+#endif

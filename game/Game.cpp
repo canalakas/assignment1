@@ -21,7 +21,7 @@ Game::~Game() {
 void Game::update() {
     if (isPaused && !isStepMode) return;
 
-    // **Araçları güncelle ve bellekten sil**
+    // Update vehicle and erase when not needed
     for (auto it = vehicles.begin(); it != vehicles.end();) {
         (*it)->update();
         if ((*it)->isOutOfBounds()) {
@@ -32,34 +32,34 @@ void Game::update() {
         }
     }
 
-    // **Çarpışma kontrolü**
+    // Collision control
     for (auto v: vehicles) {
         if (agent->checkCollision(v->getX(), v->getY(), v->getWidth(), v->getHeight())) {
-            std::cout << "ÇARPIŞMA! Oyun Bitti.\n";
+            std::cout << "GAME OVER! - Collision!\n";
             exit(0);
         }
     }
 
-    // **Coin'leri güncelle ve 10 saniyeyi aşanları temizle**
+    // Coins update and erase after 10 seconds
     for (auto it = coins.begin(); it != coins.end();) {
         if ((*it)->isExpired()) {
             delete *it;
             it = coins.erase(it);
-            std::cout << "Coin süresi doldu ve silindi.\n";
+            std::cout << "Coin Time to live has been ended.\n";
         } else {
             ++it;
         }
     }
 
-    // **Coin'leri kontrol et ve toplananları sil**
+    // Check collected Coins
     for (auto it = coins.begin(); it != coins.end();) {
         if (!(*it)->isCollected() && agent->checkCollision((*it)->getX(), (*it)->getY(), (*it)->getWidth(), (*it)->getHeight())) {
             (*it)->collect();
             agent->addScore(5);
-            std::cout << "Skor: " << agent->getScore() << "\n";
+            std::cout << "Score: " << agent->getScore() << "\n";
 
-            delete *it;  // **Coin objesini bellekten sil**
-            it = coins.erase(it);  // **coins vektöründen çıkart**
+            delete *it;
+            it = coins.erase(it);
         } else {
             ++it;
         }
@@ -67,14 +67,14 @@ void Game::update() {
     checkWinCondition();
 
     if (isStepMode) {
-        std::cout << "Tek adım ilerletildi. Mevcut skor: " << agent->getScore() << std::endl;
-        std::cout << "Agent Konumu: X: " << agent->getX() << " Y: " << agent->getY() << std::endl;
+        std::cout << "Score: " << agent->getScore() << std::endl;
+        std::cout << "Agent Location: X: " << agent->getX() << " Y: " << agent->getY() << std::endl;
 
         for (auto v : vehicles) {
-            std::cout << "Araç Konumu: X: " << v->getX() << " Y: " << v->getY() << std::endl;
+            std::cout << "Vehicle Location: X: " << v->getX() << " Y: " << v->getY() << std::endl;
         }
         for (auto c : coins) {
-            std::cout << "Coin Konumu: X: " << c->getX() << " Y: " << c->getY() << std::endl;
+            std::cout << "Coin Location: X: " << c->getX() << " Y: " << c->getY() << std::endl;
         }
         isStepMode = false;
     }
@@ -88,9 +88,9 @@ void Game::draw() {
 }
 
 void Game::spawnVehicle() {
-    if (isPaused) return;  // **Eğer oyun duraklatıldıysa yeni araç spawn etme**
+    if (isPaused) return;  // Do not spawn if the game paused
 
-    float laneCenters[] = {0.75f, 0.43f, 0.03f, -0.37f, -0.77f};  // **Şeritlerin merkezleri 0.01 aşağı kaydırıldı**
+    float laneCenters[] = {0.75f, 0.43f, 0.03f, -0.37f, -0.77f};  // this is to make vehicle center of the roads
 
     int lane = rand() % 5;
     float xPos = (rand() % 2) ? -1.1f : 1.1f;
@@ -102,7 +102,7 @@ void Game::spawnVehicle() {
         vehicles.push_back(new Truck(xPos, laneCenters[lane], 0.007f, movingRight, vehicleShaderProgram));
     }
 
-    std::cout << "Yeni Araç Spawn: X: " << xPos << " Y: " << laneCenters[lane] << std::endl;
+    std::cout << "New Vehicle has been spawned: X: " << xPos << " Y: " << laneCenters[lane] << std::endl;
 }
 
 
@@ -113,10 +113,9 @@ void Game::handleInput(int key) {
     } else if (key == GLFW_KEY_S) {
         step();
     } else if (key == GLFW_KEY_Q) {
-        std::cout << "Oyun kapatılıyor. Toplam Skor: " << agent->getScore() << std::endl;
+        std::cout << "Game is quited. Total Score: " << agent->getScore() << std::endl;
         exit(0);
     } else if (!isPaused) {
-        // **Eğer oyun duraklatılmadıysa agent hareket etsin**
         if (key == GLFW_KEY_UP && agent->getDirection() == 1) {
             agent->moveUp();
         } else if (key == GLFW_KEY_DOWN && agent->getDirection() == -1) {
@@ -126,14 +125,14 @@ void Game::handleInput(int key) {
         } else if (key == GLFW_KEY_RIGHT) {
             agent->moveRight();
         } else {
-            std::cout << "HATA: Yanlış yöne hareket ettin! Oyun bitti.\n";
+            std::cout << "GAME OVER! - Wrong way to go! \n";
             exit(0);
         }
     }
 }
 
 void Game::spawnCoin() {
-    if (isPaused) return;  // **Eğer oyun duraklatıldıysa yeni coin spawn etme**
+    if (isPaused) return;  // Do not spawn coin if the game is paused
 
     if (rand() % 10 < 2) {
         float lanePositions[] = {0.76f, 0.44f, 0.04f, -0.36f, -0.76f};
@@ -150,12 +149,10 @@ void Game::spawnCoin() {
 
         if (!duplicate) {
             coins.push_back(new Coin(xPos, lanePositions[lane], coinShaderProgram));
-            std::cout << "Yeni coin spawn edildi: X: " << xPos << " Y: " << lanePositions[lane] << std::endl;
+            std::cout << "New coin has been spawned: X: " << xPos << " Y: " << lanePositions[lane] << std::endl;
         }
     }
 }
-
-
 
 void Game::addScore(int points) {
     score += points;
@@ -167,26 +164,26 @@ int Game::getScore() const {
 
 void Game::togglePause() {
     isPaused = !isPaused;
-    std::cout << (isPaused ? "Oyun duraklatıldı." : "Oyun devam ediyor.") << std::endl;
+    std::cout << (isPaused ? "Game is paused." : "Game is going on.") << std::endl;
 }
 
 void Game::step() {
     if (!isPaused) {
-        isPaused = true; // **Eğer oyun çalışıyorsa önce duraklat**
+        isPaused = true;
     }
     isStepMode = true;
 }
 
 void Game::checkWinCondition() {
-    double elapsedTime = glfwGetTime() - startTime;  // **Geçen süreyi hesapla**
+    double elapsedTime = glfwGetTime() - startTime;
 
-    if (agent->getScore() >= 50) {
-        std::cout << "🏆 Tebrikler! 50 Skora Ulaştınız! Oyunu Kazandınız! 🏆" << std::endl;
+    if (agent->getScore() >= 150) {
+        std::cout << "Congratulations ! You have reached 150 Point! You WIN!" << std::endl;
         exit(0);
     }
 
-    if (elapsedTime >= 60.0) {
-        std::cout << "⏳ 1 Dakika Hayatta Kaldınız! Oyunu Kazandınız! 🏆" << std::endl;
+    if (elapsedTime >= 600.0) {
+        std::cout << "You have survive for 10 Minutes ! You WIN!" << std::endl;
         exit(0);
     }
 }

@@ -1,9 +1,8 @@
 #include "Truck.h"
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 Truck::Truck(float x, float y, float speed, bool direction, GLuint shaderProgram)
-    : Vehicle(x, y, speed, 0.2f, 0.05f, direction, shaderProgram) {} // **Genişliği büyük!**
+    : Vehicle(x, y, speed, 0.2f, 0.05f, direction, shaderProgram) {}
 
 void Truck::draw() {
     glUseProgram(shaderProgram);

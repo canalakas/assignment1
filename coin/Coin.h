@@ -8,7 +8,7 @@ class Coin : public GameObject {
 private:
     GLuint shaderProgram;
     float color[3];
-    int lifetime;  // **Kaç frame sonra kaybolacağı**
+    int lifetime;
     bool collected;
     double spawnTime;
 
@@ -21,4 +21,4 @@ public:
     bool isExpired() const;
 };
 
-#endif // COIN_H
+#endif

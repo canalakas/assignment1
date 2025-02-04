@@ -1,3 +1,6 @@
+//
+// Created by Can Alakaş on 27.01.2025.
+//
 #ifndef GAME_H
 #define GAME_H
 
@@ -37,4 +40,4 @@ public:
     void checkWinCondition();
 };
 
-#endif // GAME_H
+#endif

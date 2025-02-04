@@ -9,4 +9,4 @@ public:
     void draw() override;
 };
 
-#endif // TRUCK_H
+#endif
